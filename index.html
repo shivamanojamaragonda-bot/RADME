@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RADME</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>RADME</h1>
+      <p class="subtitle">A lightweight static site rendering the repository README</p>
+      <nav class="nav">
+        <a href="#content">README</a>
+        <a href="README.md" target="_blank">View raw README.md</a>
+        <a href="README.docx" target="_blank">Download README.docx</a>
+        <a href="https://github.com/shivamanojamaragonda-bot/RADME" target="_blank">Repository</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <article id="content">
+      <p>Loading README...</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <small>Generated site for <a href="https://github.com/shivamanojamaragonda-bot/RADME" target="_blank">shivamanojamaragonda-bot/RADME</a></small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    // Fetch the README.md from the repository and render it as HTML using marked
+    async function loadReadme() {
+      const rawUrl = 'https://raw.githubusercontent.com/shivamanojamaragonda-bot/RADME/main/README.md';
+      try {
+        const res = await fetch(rawUrl);
+        if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+        const md = await res.text();
+        document.getElementById('content').innerHTML = marked.parse(md);
+      } catch (err) {
+        document.getElementById('content').textContent = 'Could not load README.md: ' + err.message;
+      }
+    }
+    loadReadme();
+  </script>
+</body>
+</html>
